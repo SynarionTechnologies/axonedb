@@ -168,6 +168,11 @@ All items in the style checklist must pass before merge.
 - Maintain `GLOSSARY.md` and `/docs/fr/GLOSSARY.md`.
 - Update `README.md` and `ROADMAP.md` when public APIs or milestones change.
 
+### Changelog
+- Maintain `CHANGELOG.md` at the repository root using the Keep a Changelog format.
+- Follow Semantic Versioning.
+- Record notable changes under `Unreleased`; move to a versioned section on release.
+
 **Feature PR Requirements**
 - API reference delta.
 - Usage notes.
@@ -201,36 +206,67 @@ All items in the style checklist must pass before merge.
 - `cargo bench`
 - `cargo test -p storage -- --ignored` (failure injection)
 
-## 7. Trunk-Based Development (TBD)
+## 7. Git Conventions & Trunk-Based Development
+
+- Maintain a readable, automatable history; `main` must stay deployable.
+
+### Conventional Commits
+- Format: `<type>(<scope>)!: <subject>`.
+- Types: `feat`, `fix`, `perf`, `refactor`, `docs`, `style`, `test`, `build`, `ci`, `chore`, `revert`, `deps`, `security`.
+- Scope optional but encouraged; `!` marks breaking changes.
+- Subject imperative, \<=72 chars; body wrapped at 72.
+- Footers: `BREAKING CHANGE: ...`, `Refs #123`, `Closes #456`.
 
 ### Branching
-- Single trunk: `main`.
-- Small, short-lived feature branches; merge daily.
+- Short-lived branches `feat/`, `fix/`, `chore/`, `hotfix/`.
+- Rebase on `origin/main` before PR; squash or rebase merge only; no merge commits.
+- PRs <300 net lines.
+
+### Pull Requests
+- Title mirrors first commit.
+- Checklist covers tests, CI, analyzers, flags, docs, and changelog.
+- ≥1 reviewer; ≥2 for breaking or security changes.
+- PRs blocked if conventions or size violated.
 
 ### Feature Flags
-- All incomplete features behind flags documented in `/docs/en/flags.md`.
-- No dead flags > 2 releases.
+- Wrap non-trivial features behind server-side flags documented in `/docs/en/flags.md`.
+- Remove flags within two sprints after full rollout.
 
-### CI Gates
-- Format + clippy (deny warnings).
-- Unit + integration + property tests.
-- Benchmarks (latency budget diff).
-- `cargo-audit` & `cargo-deny`.
+### CI/CD Gates
+- Build, analyzers, tests, coverage, security scan, and format check on PR.
+- `main` adds version bump and auto-deploys to dev.
 
-### Code Review
-- ≥1 reviewer; performance-critical code requires 2 and benchmark evidence.
+### Versioning & Releases
+- Semantic Versioning: `feat` ⇒ minor, `fix`/`perf` ⇒ patch, `!`/`BREAKING CHANGE` ⇒ major.
+- Tag `vX.Y.Z`; changelog generated from commits.
+- Hotfix branches from production tags.
 
-### Releases
-- Frequent, small; rolling upgrades validated on a 3-node testbed.
+### Commit Style
+- English imperative; one idea per commit; no WIP commits.
+- Use `git commit --fixup` + `rebase --autosquash`.
+- Isolate pure formatting in `style:` commits.
 
-### Backport/Hotfix
-- Tag strategy; cherry-pick with test evidence; post-mortem template.
+### Issues & Links
+- Reference tickets in footers (`Refs #123`, `Closes #123`); avoid IDs in subjects.
+
+### Reverts
+- Use `revert:` commits instead of force-pushing `main`.
+
+### Branch Protection
+- `main` requires PR, review, green CI; no direct commits or non-linear history.
+
+### Environments & Deployment
+- `main` deploys to dev; tags deploy to staging and prod.
+- Rollback by deploying a previous tag.
+
+### Pre-commit Hooks (recommended)
+- Lint/format, analyzers, fast tests, commit message validation.
 
 ### TBD Checklist
-- [ ] Branch merged daily.
-- [ ] Feature flags documented.
-- [ ] CI gates green.
-- [ ] Reviewer approval.
+- [ ] Branch rebased on `origin/main` and merged daily.
+- [ ] Feature flags documented and scheduled for removal.
+- [ ] CI/CD gates green.
+- [ ] PR checklist complete and reviewers approved.
 
 **Flag Lifecycle**
 | Stage | Action |
