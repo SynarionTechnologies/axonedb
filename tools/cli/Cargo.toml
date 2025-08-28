@@ -1,0 +1,8 @@
+[package]
+name = "axonedb-cli"
+version = "0.1.0"
+edition = "2021"
+description = "Command-line client for AxoneDB"
+license = "Apache-2.0"
+
+[dependencies]

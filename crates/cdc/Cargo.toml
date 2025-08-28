@@ -1,0 +1,9 @@
+[package]
+name = "axonedb-cdc"
+version = "0.1.0"
+edition = "2021"
+description = "AxoneDB cdc crate."
+license = "Apache-2.0"
+
+[lib]
+path = "src/lib.rs"
