@@ -1,0 +1,9 @@
+[package]
+name = "axonedb-metrics"
+version = "0.1.0"
+edition = "2021"
+description = "AxoneDB metrics crate."
+license = "Apache-2.0"
+
+[lib]
+path = "src/lib.rs"
