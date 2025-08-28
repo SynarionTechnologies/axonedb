@@ -2,9 +2,10 @@ use std::collections::HashMap;
 use std::time::Duration;
 
 use crate::models::value::Value;
+use serde::{Deserialize, Serialize};
 
 /// In-memory key-value store with optional per-key TTL.
-#[derive(Default)]
+#[derive(Default, Serialize, Deserialize)]
 pub struct KvStore {
     map: HashMap<Vec<u8>, Value>,
 }
