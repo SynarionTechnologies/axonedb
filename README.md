@@ -1,4 +1,5 @@
 # AxoneDB
+![Acceleration Planned](https://img.shields.io/badge/Acceleration-planned-lightgrey)
 
 AxoneDB — An ultra-low latency, distributed database built for high-performance, real-time applications.
 
@@ -11,6 +12,9 @@ AxoneDB targets workloads that demand microsecond responsiveness and predictable
 - Durable write-ahead log and snapshots
 - Change Data Capture (CDC) streams
 - Comprehensive observability
+
+## Acceleration (planned)
+An optional Vulkan-based acceleration layer for heavy analytic workloads is under design. See [docs/specs/acceleration/vulkan.md](docs/specs/acceleration/vulkan.md) for details.
 
 ## Roadmap
 See [ROADMAP.md](ROADMAP.md) for phased milestones.
