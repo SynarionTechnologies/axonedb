@@ -7,3 +7,6 @@ allow = ["Apache-2.0", "MIT", "Unicode-3.0"]
 [sources]
 unknown-registry = "deny"
 unknown-git = "deny"
+
+[advisories]
+git-fetch-with-cli = true
