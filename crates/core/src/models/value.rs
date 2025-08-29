@@ -1,11 +1,13 @@
 use std::time::Duration;
 
 use super::ttl::Ttl;
+use serde::{Deserialize, Serialize};
 
 /// Stored value along with an optional time-to-live.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub(crate) struct Value {
     pub(crate) data: Vec<u8>,
+    #[serde(default)]
     ttl: Option<Ttl>,
 }
 
